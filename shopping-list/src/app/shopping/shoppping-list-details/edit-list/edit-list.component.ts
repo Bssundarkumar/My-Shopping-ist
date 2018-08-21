@@ -47,7 +47,7 @@ export class EditListComponent implements OnInit {
       }
     }
     this.itemForm = new FormGroup({
-      name: new FormControl(listName),
+      listNm: new FormControl(listName),
       items: itemsList
     });
   }
