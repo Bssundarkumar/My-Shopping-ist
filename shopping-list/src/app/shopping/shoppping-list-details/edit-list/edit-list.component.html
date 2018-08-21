@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-12">
+      <form [formGroup]='itemForm'>
+        <div class="row">
+          <div class="col-12">
+            <label for="name">Name Of List:</label>
+            <Input type="text" id="listName" class="form-control" formControlName="name">
+          </div>
+        </div>
+        <br>
+        <div class="row"*ngFor="let item of itemForm.controls['items']; let i= index"
+        [formGroupName]="i">
+          <div class="col-12" formArrayName="items">
+            <div class="row" >
+              <div class="col-8 form-group">
+  
+                <Input type="text" id="name" class="form-control" formControlName="name" ngDefaultControl>
+              </div>
+              <div class="col-2 form-group">
+  
+                <Input type="number" id="amount" class="form-control" formControlName="amount" ngDefaultControl>
+              </div>
+              <div class="col-2 form-group">
+                <button class="btn btn-danger" type="button">X</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

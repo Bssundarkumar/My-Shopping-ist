@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <h2>Shopping Lists</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="content box">
+      <app-list-details *ngFor="let shopList of shoppingLists; let i= index" [shoppingList]="shopList" [index]="i" class="list-group-item"></app-list-details>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <button class="btn btn-primary">Add New List</button>
+  </div>
+</div>

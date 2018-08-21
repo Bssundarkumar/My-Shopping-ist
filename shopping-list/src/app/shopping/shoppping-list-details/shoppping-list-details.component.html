@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row row1 mx-auto">
+    <h4>{{shoppingList.listName}}</h4>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <ul class="list-group">
+        <a class="list-group-item" style="cursor: pointer" *ngFor="let items of shoppingList.items; let i=index" (click)="onEditItem(i)">
+          <h5>{{items.name}} ({{items.amount}}) <button class="btn btn-danger float-right">X</button></h5>
+        </a>
+
+      </ul>
+    </div>
+
+  </div>
+</div>
+
