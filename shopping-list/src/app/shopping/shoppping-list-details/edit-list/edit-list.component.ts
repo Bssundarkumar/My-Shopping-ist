@@ -27,6 +27,17 @@ export class EditListComponent implements OnInit {
     );
     this.initForm();
   }
+  onSubmit() {
+    console.log(this.itemForm);
+  }
+  onAddItems() {
+   (<FormArray>this.itemForm.get('items')).push(
+     new FormGroup({
+       'name': new FormControl(),
+       'amount': new FormControl
+     })
+   );
+  }
   private initForm() {
     let listName = '';
     // tslint:disable-next-line:prefer-const
@@ -39,16 +50,16 @@ export class EditListComponent implements OnInit {
         for (let itemlist of shopList.items) {
           itemsList.push(
             new FormGroup({
-              name: new FormControl(itemlist.name),
-              amount: new FormControl(itemlist.amount)
+              'name': new FormControl(itemlist.name),
+              'amount': new FormControl(itemlist.amount)
             })
           );
         }
       }
     }
     this.itemForm = new FormGroup({
-      listNm: new FormControl(listName),
-      items: itemsList
+      'listNm': new FormControl(listName),
+      'items': itemsList
     });
   }
 }

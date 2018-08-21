@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingList } from '../shopping.model';
 import { ShoppingService } from '../shopping.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -9,11 +10,21 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./shoppping-list.component.css']
 })
 export class ShopppingListComponent implements OnInit {
+  listEditMode = false;
   shoppingLists: ShoppingList[];
+  model: any = {};
   constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit() {
     this.shoppingLists = this.shoppingService.getShoppingLists();
+  }
+  onAddListName(form: NgForm) {
+      const value = form.value;
+      this.listEditMode = false;
+      this.shoppingService.addNewListName(value.lstName);
+  }
+  editMode() {
+    return this.listEditMode = true;
   }
 
 }

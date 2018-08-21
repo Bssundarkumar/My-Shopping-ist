@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingList } from '../shopping.model';
 import { ShoppingService } from '../shopping.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shoppping-list-details',
@@ -9,6 +10,7 @@ import {ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./shoppping-list-details.component.css']
 })
 export class ShopppingListDetailsComponent implements OnInit {
+  editMode = false;
   shoppingList: ShoppingList;
   shoppingLists: ShoppingList[];
   id: number;
@@ -21,8 +23,25 @@ export class ShopppingListDetailsComponent implements OnInit {
     });
   }
 
+  onaddNewItem(form: NgForm) {
+    const value = form.value;
+    console.log(value.itemAmount);
+    console.log(value.itemName);
+    this.shoppingService.addItem(this.id, value.itemName, value.itemAmount);
+  }
+
+  enableEdit() {
+    this.editMode = true;
+  }
+
   onEditItem(id: number) {
        this.shoppingService.startedEditing.next(id);
   }
+
+  onDeleteItem(i: number) {
+      this.shoppingService.deleteItem(this.id, i);
+  }
+
+
 
 }

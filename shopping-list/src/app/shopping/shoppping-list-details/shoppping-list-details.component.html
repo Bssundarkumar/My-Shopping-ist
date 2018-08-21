@@ -1,17 +1,37 @@
-<div class="container-fluid">
-  <div class="row row1 mx-auto">
-    <h4>{{shoppingList.listName}}</h4>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <ul class="list-group">
-        <a class="list-group-item" style="cursor: pointer" *ngFor="let items of shoppingList.items; let i=index" (click)="onEditItem(i)">
-          <h5>{{items.name}} ({{items.amount}}) <button class="btn btn-danger float-right">X</button></h5>
-        </a>
-
-      </ul>
+<div class="row">
+  <div class="col-12">
+    <div class="container-fluid">
+      <div class="row row1 mx-auto">
+        <h4>{{shoppingList.listName}}</h4>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group">
+            <a class="list-group-item" style="cursor: pointer" *ngFor="let items of shoppingList.items; let i=index" (click)="onEditItem(i)">
+              <h5>{{items.name}} ({{items.amount}}) <button class="btn btn-danger float-right" (click)="onDeleteItem(i)">X</button></h5>
+            </a>
+          </ul>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>
-
+<br>
+<div class="row" *ngIf="!editMode">
+  <div class="col-12">
+    <button class="btn btn-success" (click)="enableEdit()">Add New Item</button>
+  </div>
+</div>
+<div class="row" *ngIf="editMode">
+  <div class="col">
+    <form #f="ngForm" (ngSubmit)="onaddNewItem(f)">
+      <label for="name">Name</label>
+      <Input type="text" id="itemName" class="form-control" name="itemName" ngModel>
+        
+      <label for="amount">Amount</label>
+      <Input type="number" id="itemAmount" class="form-control" name="itemAmount" ngModel>
+        <br>
+      <button class="btn btn-success" type="submit">Save</button>
+    </form>
+  </div>
+</div>

@@ -1,31 +1,43 @@
 <div class="row">
-    <div class="col-12">
-      <form [formGroup]='itemForm'>
-        <div class="row">
-          <div class="col-12">
-            <label for="name">Name Of List:</label>
-            <Input type="text" id="listName" class="form-control" formControlName="listNm">
-          </div>
+  <div class="col-12">
+    <form [formGroup]='itemForm' (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-success" type="submit">Save</button>
         </div>
-        <br>
-        <div class="row"*ngFor="let item of itemForm.controls['items']; let i= index"
-        [formGroupName]="i">
-          <div class="col-12" formArrayName="items">
-            <div class="row" >
-              <div class="col-8 form-group">
-  
-                <Input type="text" id="name" class="form-control" formControlName="name" ngDefaultControl>
-              </div>
-              <div class="col-2 form-group">
-  
-                <Input type="number" id="amount" class="form-control" formControlName="amount" ngDefaultControl>
-              </div>
-              <div class="col-2 form-group">
-                <button class="btn btn-danger" type="button">X</button>
-              </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="name">Name Of List:</label>
+          <Input type="text" id="listName" class="form-control" formControlName="listNm">
+        </div>
+      </div>
+      <br>
+      <!-- <div class="row" > -->
+      <div class="row">
+        <div class="col-12" formArrayName="items" >
+          <div class="row" *ngFor="let itemCtrl of itemForm.controls['items']; let i= index" 
+          [formGroupName]="i">
+            <div class="col-6 form-group">
+              <Input type="text" id="name" class="form-control" 
+              formControlName="name" >
+            </div>
+            <div class="col-4 form-group">
+
+              <Input type="number" id="amount" class="form-control" 
+              formControlName="amount" >
+            </div>
+            <div class="col-2 form-group">
+              <button class="btn btn-danger" type="button">X</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-success" (click)="onAddItems()">Add Items</button>
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+</div>

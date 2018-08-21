@@ -24,8 +24,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
+    AppRoutingModule,
     ReactiveFormsModule
   ],
   providers: [ShoppingService],
