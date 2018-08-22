@@ -60,7 +60,6 @@ export class ShoppingService {
     return this.shoppingList[lId].items[iId];
   }
   deleteItem(lId: number, iId: number) {
-   
      return this.shoppingList[lId].items.splice(iId, 1);
   }
   addNewListName(name: string) {
@@ -71,11 +70,11 @@ export class ShoppingService {
   }
   getAllItems() {
     // tslint:disable-next-line:prefer-const
-    let newItems = []; 
+    let newItems = [];
     // tslint:disable-next-line:prefer-const
     for (let shop of this.shoppingList) {
       // tslint:disable-next-line:prefer-const
-      for (let item of shop.items) { 
+      for (let item of shop.items) {
         newItems.push(item);
       }
     }
