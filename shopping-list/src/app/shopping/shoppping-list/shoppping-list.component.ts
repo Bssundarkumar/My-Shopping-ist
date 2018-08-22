@@ -16,8 +16,6 @@ export class ShopppingListComponent implements OnInit {
 
   ngOnInit() {
     this.shoppingLists = this.shoppingService.getShoppingLists();
-    console.log(this.shoppingLists);
-
   }
   onAddListName(form: NgForm) {
       const value = form.value;

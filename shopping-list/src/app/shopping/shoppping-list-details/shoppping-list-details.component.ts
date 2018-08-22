@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { ShoppingList } from '../shopping.model';
 import { ShoppingService } from '../shopping.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -15,31 +20,41 @@ import { ItemModel } from '../item.model';
 export class ShopppingListDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('f')
   slForm: NgForm;
-  editMode = false;
   updateMode = false;
   shoppingList: ShoppingList;
   shoppingLists: ShoppingList[];
   itemComp: ItemListComponent;
   id: number;
   editedIndexNumber: number;
-  subscription: Subscription;
+  subscriptionEdit: Subscription;
+  subscriptionAdd: Subscription;
+  subscriptionParam: Subscription;
+
   editedItem: ItemModel;
+  latsetItems: ItemModel[];
+  addedIted: ItemModel;
+
   constructor(
     private shoppingService: ShoppingService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((parms: Params) => {
+    this.subscriptionParam = this.route.params.subscribe((parms: Params) => {
+      this.updateMode = false;
       this.id = +parms['id'];
       this.shoppingList = this.shoppingService.getShoppingList(this.id);
     });
 
-    this.shoppingService.startedEditing.subscribe((index: number) => {
+    this.subscriptionAdd = this.shoppingService.addNewItem.subscribe((index: number) => {
+      this.updateMode = false;
+      this.shoppingService.addItemByIndex(this.id, index);
+    });
+
+    this.subscriptionEdit = this.shoppingService.startedEditing.subscribe((index: number) => {
       this.editedIndexNumber = index;
       this.updateMode = true;
       this.editedItem = this.shoppingService.getIngredient(this.id, index);
-      console.log(this.editedItem);
       this.slForm.setValue({
         itemName: this.editedItem.name,
         itemAmount: this.editedItem.amount
@@ -48,7 +63,6 @@ export class ShopppingListDetailsComponent implements OnInit, OnDestroy {
   }
 
   onaddNewItem(form: NgForm) {
-    this.editMode = false;
     const value = form.value;
     const newItem = new ItemModel(value.itemName, value.itemAmount);
     if (this.updateMode) {
@@ -57,24 +71,23 @@ export class ShopppingListDetailsComponent implements OnInit, OnDestroy {
       this.ngOnInit();
     } else {
       this.shoppingService.addItem(this.id, value.itemName, value.itemAmount);
-      this.ngOnInit();
+      this.latsetItems = this.shoppingService.getAllItems();
+      this.shoppingService.itemsChanged.next(this.latsetItems.slice());
+     this.ngOnInit();
     }
+    form.reset();
   }
-
-  enableEdit() {
-    this.editMode = true;
-  }
-
   onEditItem(id: number) {
-    this.editMode = true;
     this.shoppingService.startedEditing.next(id);
   }
-
   onDeleteItem(i: number) {
+    this.updateMode = false;
     this.shoppingService.deleteItem(this.id, i);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptionParam.unsubscribe();
+    this.subscriptionAdd.unsubscribe();
+    this.subscriptionEdit.unsubscribe();
   }
 }

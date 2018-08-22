@@ -8,7 +8,8 @@ const appRoute: Routes = [
       {path: '+0', component: ShopppingListDetailsComponent},
       {path: ':id', component: ShopppingListDetailsComponent}
     ]},
-    {path: '', redirectTo: 'shoppingList', pathMatch: 'full'}
+    {path: '', redirectTo: 'shoppingList', pathMatch: 'full'},
+    {path: '**', redirectTo: 'shoppingList', pathMatch: 'full'}
 ];
 @NgModule({
   imports: [
