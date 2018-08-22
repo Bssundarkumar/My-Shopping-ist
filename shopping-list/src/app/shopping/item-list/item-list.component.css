@@ -1,22 +1,14 @@
-h5{
+h5{    
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
 }
-.row1{
+
+.slh{
     background-color: black;
-    margin-left: 50PX;
-    margin-right: 50PX;
     color: white;
-    font-size: 15px;
     border-radius: 15px;
+    margin-left: 15px!important;
+    margin-right: 15px!important;
 }
-
-
-.str{
-    text-align: center;
-}
-
 .summi {
     float: left;
     width: 100%;

@@ -5,8 +5,11 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ShoppingService {
-  startedEditing = new Subject();
-
+  shopListChanged = new Subject<ShoppingList[]>();
+  startedEditing = new Subject<number>();
+  itemsChanged = new Subject<ItemModel[]>();
+  private totalItem: ItemModel[] = [];
+  nullItem: ItemModel[];
   itemList1: ItemModel[] = [
     new ItemModel('pen', 1),
     new ItemModel('pichi', 2),
@@ -32,24 +35,48 @@ export class ShoppingService {
   addItem(id: number, name: string, amount: number) {
     const itemNew = new ItemModel(name, amount);
     const oldItems = this.shoppingList[id].items;
-    const newItems = [...oldItems, itemNew];
-    const shoppingnew = new ShoppingList(
-      this.shoppingList[id].listName,
-      newItems
-    );
-
-    return this.shoppingList;
+    let newItems = [];
+    if (oldItems === undefined) {
+      newItems = [itemNew];
+    } else {
+      newItems = [...oldItems, itemNew];
+    }
+    const lstName = this.shoppingList[id].listName;
+    const shoppingnew = new ShoppingList(lstName, newItems);
+    this.shoppingList[id] = shoppingnew;
+    this.getAllItems();
+    this.shopListChanged.next(this.shoppingList.slice());
   }
   getIngredient(lId: number, iId: number) {
+    // tslint:disable-next-line:no-unused-expression
     return this.shoppingList[lId].items[iId];
   }
   deleteItem(lId: number, iId: number) {
+    this.getAllItems();
     return this.shoppingList[lId].items.splice(iId, 1);
   }
   addNewListName(name: string) {
-    const shoppingnew = new ShoppingList(name, null);
+    const shoppingnew = new ShoppingList(name, this.nullItem);
     this.shoppingList.push(shoppingnew);
-    console.log(this.shoppingList);
+    this.shopListChanged.next(this.shoppingList.slice());
+    this.getAllItems();
     return this.shoppingList;
+  }
+  getAllItems() {
+    // tslint:disable-next-line:prefer-const
+    let newItems = [];
+    // tslint:disable-next-line:prefer-const
+    for (let shop of this.shoppingList) {
+      // tslint:disable-next-line:prefer-const
+      for (let item of shop.items) {
+        newItems.push(item);
+      }
+    }
+    this.totalItem = newItems;
+    return this.totalItem;
+  }
+  updateItem(id: number, index: number, item: ItemModel) {
+    this.getAllItems();
+    this.shoppingList[id].items[index] = item;
   }
 }

@@ -1,14 +1,35 @@
 <div class="row">
   <div class="col-12">
     <div class="container-fluid">
-      <div class="row row1 mx-auto">
-        <h4>{{shoppingList.listName}}</h4>
+      <div class="row row1">
+        <div class="col-12">
+          <h5>{{shoppingList.listName}} List</h5>
+        </div>
       </div>
+      <br>
       <div class="row">
         <div class="col-12">
-          <ul class="list-group">
+          <ul class="list-group summi" >
+            <a class="list-group-item" style="background-color: #ff6e00 ;">
+              <h5>Item Name (Amount)</h5>
+            </a>
             <a class="list-group-item" style="cursor: pointer" *ngFor="let items of shoppingList.items; let i=index" (click)="onEditItem(i)">
               <h5>{{items.name}} ({{items.amount}}) <button class="btn btn-danger float-right" (click)="onDeleteItem(i)">X</button></h5>
+            </a>
+            <a class="list-group-item">
+              <form #f="ngForm" (ngSubmit)="onaddNewItem(f)">
+                <div class="row">
+                  <div class="col-5">
+                    <input type="text" id="itemName" class="form-control" placeholder="Item Name" name="itemName" ngModel required>
+                  </div>
+                  <div class="col-4">
+                    <input type="number" id="itemAmount" class="form-control" placeholder="Item Amount" name="itemAmount" ngModel required>
+                  </div>
+                  <div class="col-2">
+                    <button class="btn btn-success" type="submit" [disabled]="!f.valid">{{updateMode? 'Update': 'Add'}}</button>
+                  </div>
+                </div>
+              </form>
             </a>
           </ul>
         </div>
@@ -17,21 +38,3 @@
   </div>
 </div>
 <br>
-<div class="row" *ngIf="!editMode">
-  <div class="col-12">
-    <button class="btn btn-success" (click)="enableEdit()">Add New Item</button>
-  </div>
-</div>
-<div class="row" *ngIf="editMode">
-  <div class="col">
-    <form #f="ngForm" (ngSubmit)="onaddNewItem(f)">
-      <label for="name">Name</label>
-      <Input type="text" id="itemName" class="form-control" name="itemName" ngModel>
-        
-      <label for="amount">Amount</label>
-      <Input type="number" id="itemAmount" class="form-control" name="itemAmount" ngModel>
-        <br>
-      <button class="btn btn-success" type="submit">Save</button>
-    </form>
-  </div>
-</div>

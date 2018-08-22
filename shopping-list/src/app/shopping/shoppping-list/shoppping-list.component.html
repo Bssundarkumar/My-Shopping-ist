@@ -1,13 +1,12 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 slh" style="margin: auto;">
     <h5>Shopping Lists</h5>
   </div>
-</div>
-<div class="row">
+  <br>
   <div class="col-12">
     <div class="content box">
-      <app-list-details *ngFor="let shopList of shoppingLists; let i= index" 
-      [shoppingList]="shopList" [index]="i" class="list-group-item"></app-list-details>
+        <br>
+      <app-list-details *ngFor="let shopList of shoppingLists; let i= index" [shoppingList]="shopList" [index]="i" class="list-group-item"></app-list-details>
     </div>
   </div>
 </div>
@@ -15,15 +14,15 @@
 <div class="row" *ngIf="listEditMode">
   <div class="col">
     <form #f="ngForm" (ngSubmit)="onAddListName(f)">
-      <label for="name">List Name </label>
-      <input type="text" id="listName" class="form-control" name="lstName" ngModel>
+      
+      <input type="text" id="listName" class="form-control" placeholder="List Name" name="lstName" ngModel required>
       <br>
-      <button class="btn btn-success" type="submit">Save List Name</button>
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save List Name</button>
     </form>
   </div>
 </div>
 <div class="row" *ngIf="!listEditMode">
   <div class="col-12">
-    <button class="btn btn-primary" (click)="editMode()" >Add New List</button>
+    <button class="btn btn-primary" (click)="editMode()">Add New List</button>
   </div>
 </div>

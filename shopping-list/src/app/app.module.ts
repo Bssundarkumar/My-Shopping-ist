@@ -9,8 +9,9 @@ import { ListDetailsComponent } from './shopping/shoppping-list/list-details/lis
 import { HeaderComponent } from './header/header.component';
 import { ShoppingService } from './shopping/shopping.service';
 import { AppRoutingModule } from './app-routing.module';
-import { EditListComponent } from './shopping/shoppping-list-details/edit-list/edit-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ItemListComponent } from './shopping/item-list/item-list.component';
+import { ItemDetailComponent } from './shopping/item-list/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ShopppingListComponent,
     ListDetailsComponent,
     HeaderComponent,
-    EditListComponent
+    ItemListComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,

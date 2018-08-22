@@ -12,11 +12,12 @@ import { NgForm } from '@angular/forms';
 export class ShopppingListComponent implements OnInit {
   listEditMode = false;
   shoppingLists: ShoppingList[];
-  model: any = {};
   constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit() {
     this.shoppingLists = this.shoppingService.getShoppingLists();
+    console.log(this.shoppingLists);
+
   }
   onAddListName(form: NgForm) {
       const value = form.value;

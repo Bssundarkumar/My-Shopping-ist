@@ -1,0 +1,13 @@
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #ff2222;
+    border-color: #ff2222;
+    text-align: center;
+}
+
+h6{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
