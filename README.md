@@ -1,5 +1,7 @@
 # My-Shopping-ist
 
+#I Hosted this application @ https://bssundarkumar.github.io/My-Shopping-ist/  
+
 1.please download the files and navigate to shopping-List folder and run ng serve if the npm is installed in your system.
 
 2. if npm is not installed follow the commands
